@@ -160,7 +160,7 @@ class FormControl(object):
             h = rect.bottom - rect.top
         if x < 0 or y < 0 or (x+w) > rect.right or (y+h) > rect.bottom:
             return None
-        return self.Capture(self.win_hd,'',x,y,w,h,1)
+        return self.Capture(self.win_hd,'test.bmp',x,y,w,h,0)
 
     def Capture(self, hd, path, x, y, w, h, mode):
         """
