@@ -1,4 +1,4 @@
-from process.uiControl import FormControl
+from uiControl import FormControl
 
 # Internal OCR Tools
 import CNOCR

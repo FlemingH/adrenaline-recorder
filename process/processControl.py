@@ -1,7 +1,7 @@
 # https://blog.csdn.net/hskjshs/article/details/113521216
 from pynput.mouse import Listener,Button
 
-from process.uiControl import FormControl
+from uiControl import FormControl
 
 # 监听鼠标移动事件，将鼠标的位置打印出来
 # on_move（x，y）是鼠标移动时回调的函数两个参数x，y描述的是鼠标的位置
