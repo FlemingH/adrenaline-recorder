@@ -7,12 +7,16 @@ import win32ui
 from ctypes import *
 from ctypes import wintypes
 
-GetForegroundWindow = windll.user32.GetForegroundWindow
-GetWindowRect = windll.user32.GetWindowRect
-SetForegroundWindow = windll.user32.SetForegroundWindow
-GetWindowText = windll.user32.GetWindowTextA
-MoveWindow = windll.user32.MoveWindow
-EnumWindows = windll.user32.EnumWindows
+# Make program aware of DPI scaling
+user32 = windll.user32
+user32.SetProcessDPIAware()
+
+GetForegroundWindow = user32.GetForegroundWindow
+GetWindowRect = user32.GetWindowRect
+SetForegroundWindow = user32.SetForegroundWindow
+GetWindowText = user32.GetWindowTextA
+MoveWindow = user32.MoveWindow
+EnumWindows = user32.EnumWindows
 
 class RECT(Structure):
     _fields_ = [
@@ -87,7 +91,7 @@ class FormControl(object):
         pos.x = x - rect.left
         pos.y = y - rect.top
         # 指定的坐标不在窗体内，则结束函数
-        if pos.x < 0 or pos.y < 0 or pos.x > rect.right or pos.y > rect.bottom:
+        if pos.x < 0 or pos.y < 0 or x > rect.right or y > rect.bottom:
             return None
         return pos
 
