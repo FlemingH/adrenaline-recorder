@@ -1,8 +1,7 @@
 # https://blog.csdn.net/hskjshs/article/details/113521216
 from pynput.mouse import Listener,Button
 
-from uiControl import FormControl
-
+from process.uiControl import FormControl
 
 # 监听鼠标移动事件，将鼠标的位置打印出来
 # on_move（x，y）是鼠标移动时回调的函数两个参数x，y描述的是鼠标的位置
@@ -41,9 +40,7 @@ def on_scroll(x, y, dx, dy):
     print('Scrolled {0}'.format((x, y)))
     print(dx, dy)
 
-def startProcess():
+def startControlProcess():
     # Collect events until released
     with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
         listener.join()
-
-startProcess()

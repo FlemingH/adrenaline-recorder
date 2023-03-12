@@ -1,4 +1,5 @@
 from multiprocessing import Process
+from process.processControl import startControlProcess
 
 import time
 
@@ -8,5 +9,12 @@ class mProcess(Process):
         self.name = name
  
     def run(self):
-        print('process name :' + str(self.name))
-        time.sleep(1)
+        if (self.name == "Control"):
+            # start the pynput's Listener
+            startControlProcess()
+        if (self.name == "OCR"):
+            print("OCR")
+            time.sleep(20)
+        if (self.name == "UIListener"):
+            print("UIListener")
+            time.sleep(20)
