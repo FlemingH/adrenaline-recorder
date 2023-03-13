@@ -25,7 +25,13 @@ def on_click(x, y, button, pressed):
         formControl.bindWindowByName(win_name = "AMD Software: Adrenalin Edition")
 
         pos = formControl.toWindowPos(x=x, y=y)
-        if pos is not None:
+        isWinVisible = formControl.isWinVisible()
+        getForegroundWindow = formControl.getForegroundWindow()
+
+        # if click pos in the window bbox
+        # if window opend
+        # if window focused
+        if pos is not None and isWinVisible and getForegroundWindow:
             print(pos.x, pos.y, "\n")
 
     elif button == Button.right:

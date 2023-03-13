@@ -1,4 +1,5 @@
 from mutiProcess import mProcess
+from multiprocessing import Value
 
 # start two process to doing the OCR while listen the UI change
 # p = mProcess("OCR")
@@ -15,10 +16,10 @@ from mutiProcess import mProcess
 
 if __name__ == '__main__':
 
-    process = mProcess("OCR")
-    process.start()
-    process = mProcess("UIListener")
-    process.start()
+    # process = mProcess("OCR")
+    # process.start()
+    # process = mProcess("UIListener")
+    # process.start()
     process = mProcess("Control")
     process.start()
 

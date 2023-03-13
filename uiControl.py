@@ -15,6 +15,8 @@ GetForegroundWindow = user32.GetForegroundWindow
 GetWindowRect = user32.GetWindowRect
 SetForegroundWindow = user32.SetForegroundWindow
 GetWindowText = user32.GetWindowTextA
+IsWindowVisible = user32.IsWindowVisible
+GetForegroundWindow = user32.GetForegroundWindow
 MoveWindow = user32.MoveWindow
 EnumWindows = user32.EnumWindows
 
@@ -53,6 +55,22 @@ class FormControl(object):
         pro_fun_type = CFUNCTYPE(c_bool, c_int, c_long)
         pro_fun_p = pro_fun_type(self.EnumWindowsProc)
         EnumWindows(pro_fun_p, None)
+
+    def isWinVisible(self):
+        """
+        function：check if window visible by hWnd
+        """
+        if self.win_hd is None:
+            return None
+        return IsWindowVisible(self.win_hd)
+
+    def getForegroundWindow(self):
+        """
+        function：check if window on the top
+        """
+        if self.win_hd is None:
+            return None
+        return self.win_hd == GetForegroundWindow()
 
     def getWinRect(self):
         """
