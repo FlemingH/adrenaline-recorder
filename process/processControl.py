@@ -18,6 +18,7 @@ def on_move(x, y):
 # pressed的值是bool类型是鼠标按键的按下时是True，松开时为False。
 
 if_start_ocr_ = None
+mouse_click_pos_ = None
 def on_click(x, y, button, pressed):
     if button == Button.left:
 
@@ -37,11 +38,17 @@ def on_click(x, y, button, pressed):
         # if mouse pressed not released
         if pos is not None and isWinVisible and getForegroundWindow and pressed:
 
+            # send mouse click pos to ocr
+            global mouse_click_pos_
+            mouse_click_pos_['x'] = x
+            mouse_click_pos_['y'] = y
+
             # call cnocr to do text recognition
             global if_start_ocr_
             if_start_ocr_.value = 1
 
             print(getWinRect.left, getWinRect.top, getWinRect.right, getWinRect.bottom)
+            print(x, y)
             print(pos.x, pos.y, "\n")
 
     elif button == Button.right:
@@ -56,9 +63,14 @@ def on_scroll(x, y, dx, dy):
     print('Scrolled {0}'.format((x, y)))
     print(dx, dy)
 
-def startControlProcess(if_start_ocr):
+def startControlProcess(if_start_ocr, mouse_click_pos):
+    
     # Collect events until released
     global if_start_ocr_
+    global mouse_click_pos_
+
     if_start_ocr_ = if_start_ocr
+    mouse_click_pos_ = mouse_click_pos
+    
     with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
         listener.join()
