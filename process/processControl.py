@@ -16,6 +16,8 @@ def on_move(x, y):
 # button是鼠标的按键，值有三种Button.left(左键)、Button.right（右键）、Button.middle（中键）
 # 注意鼠标button使用按下一次会有两次反馈（按下和松开）。想要使用一次可以把一个if pressed:语句放在它的外层
 # pressed的值是bool类型是鼠标按键的按下时是True，松开时为False。
+
+if_start_ocr_ = None
 def on_click(x, y, button, pressed):
     if button == Button.left:
 
@@ -27,11 +29,19 @@ def on_click(x, y, button, pressed):
         pos = formControl.toWindowPos(x=x, y=y)
         isWinVisible = formControl.isWinVisible()
         getForegroundWindow = formControl.getForegroundWindow()
+        getWinRect = formControl.getWinRect()
 
         # if click pos in the window bbox
         # if window opend
         # if window focused
-        if pos is not None and isWinVisible and getForegroundWindow:
+        # if mouse pressed not released
+        if pos is not None and isWinVisible and getForegroundWindow and pressed:
+
+            # call cnocr to do text recognition
+            global if_start_ocr_
+            if_start_ocr_.value = 1
+
+            print(getWinRect.left, getWinRect.top, getWinRect.right, getWinRect.bottom)
             print(pos.x, pos.y, "\n")
 
     elif button == Button.right:
@@ -46,7 +56,9 @@ def on_scroll(x, y, dx, dy):
     print('Scrolled {0}'.format((x, y)))
     print(dx, dy)
 
-def startControlProcess():
+def startControlProcess(if_start_ocr):
     # Collect events until released
+    global if_start_ocr_
+    if_start_ocr_ = if_start_ocr
     with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
         listener.join()
