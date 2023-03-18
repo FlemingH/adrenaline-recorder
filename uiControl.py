@@ -227,6 +227,5 @@ class FormControl(object):
         value=buffer.value.decode('utf-8')
         if value == self.win_title:
             self.win_hd = hwnd
-            print("window found:", self.win_hd)
             return  False
         return True
