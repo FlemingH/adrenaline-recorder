@@ -4,6 +4,7 @@ import win32con
 import win32api
 import win32gui
 import win32ui
+import win32print
 from ctypes import *
 from ctypes import wintypes
 
@@ -71,6 +72,15 @@ class FormControl(object):
         if self.win_hd is None:
             return None
         return self.win_hd == GetForegroundWindow()
+
+    def getDeviceCaps(self):
+        """
+        get main display's real resolution
+        """
+        hDC = win32gui.GetDC(0)
+        monitor_width = win32print.GetDeviceCaps(hDC, win32con.DESKTOPHORZRES)
+        monitor_height = win32print.GetDeviceCaps(hDC, win32con.DESKTOPVERTRES)
+        return monitor_width, monitor_height
 
     def getWinRect(self):
         """
