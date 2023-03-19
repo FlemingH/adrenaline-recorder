@@ -18,6 +18,7 @@ def on_move(x, y):
 # pressed的值是bool类型是鼠标按键的按下时是True，松开时为False。
 
 if_start_ocr_ = None
+if_window_open_focus_ = None
 mouse_click_pos_ = None
 def on_click(x, y, button, pressed):
     if button == Button.left:
@@ -28,15 +29,13 @@ def on_click(x, y, button, pressed):
         formControl.bindWindowByName(win_name = "AMD Software: Adrenalin Edition")
 
         pos = formControl.toWindowPos(x=x, y=y)
-        isWinVisible = formControl.isWinVisible()
-        getForegroundWindow = formControl.getForegroundWindow()
         getWinRect = formControl.getWinRect()
 
         # if click pos in the window bbox
         # if window opend
         # if window focused
         # if mouse pressed not released
-        if pos is not None and isWinVisible and getForegroundWindow and pressed:
+        if pos is not None and if_window_open_focus_.value == 1 and pressed:
 
             # send mouse click pos to ocr
             global mouse_click_pos_
@@ -63,14 +62,16 @@ def on_scroll(x, y, dx, dy):
     print('Scrolled {0}'.format((x, y)))
     print(dx, dy)
 
-def startControlProcess(if_start_ocr, mouse_click_pos):
+def startControlProcess(if_start_ocr, if_window_open_focus, mouse_click_pos):
     
     # Collect events until released
     global if_start_ocr_
+    global if_window_open_focus_
     global mouse_click_pos_
 
     if_start_ocr_ = if_start_ocr
+    if_window_open_focus_ = if_window_open_focus
     mouse_click_pos_ = mouse_click_pos
-    
+
     with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
         listener.join()
