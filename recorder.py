@@ -14,7 +14,7 @@ if __name__ == '__main__':
     mouse_click_pos['y'] = 0
 
     pControl = multiprocessing.Process(target=startControlProcess, args=(if_start_ocr,if_window_open_focus,mouse_click_pos,))
-    pOcr = multiprocessing.Process(target=startOCRProcess, args=(if_start_ocr,mouse_click_pos,))
+    pOcr = multiprocessing.Process(target=startOCRProcess, args=(if_start_ocr,if_window_open_focus,mouse_click_pos,))
     pUi = multiprocessing.Process(target=startUIProcess, args=(if_window_open_focus,))
     pControl.start()
     pOcr.start()
